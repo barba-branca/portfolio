@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaue Martins | AI Developer & Strategist</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0F0F11',
+                            800: '#18181B',
+                            700: '#27272A',
+                            300: '#D4D4D8',
+                            400: '#A1A1AA',
+                        },
+                        brand: {
+                            primary: '#8B5CF6',   /* Violet 500 */
+                            secondary: '#06B6D4', /* Cyan 500 */
+                            accent: '#EC4899',    /* Pink 500 */
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #8B5CF6 0deg, #06B6D4 180deg, #8B5CF6 360deg)',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'cursor': 'cursor .75s step-end infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        cursor: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #8B5CF6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F0F11;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3F3F46;
+        }
+
+        /* Terminal Typing Effect */
+        .typing-cursor::after {
+            content: '▋';
+            margin-left: 2px;
+            animation: cursor 1s infinite;
+            color: #8B5CF6;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-dark-900 text-dark-300 font-sans antialiased overflow-x-hidden selection:bg-brand-primary selection:text-white">
+
+    <!-- Background Ambient Glow -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-primary/20 rounded-full blur-[128px] animate-blob"></div>
+        <div
+            class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full blur-[128px] animate-blob animation-delay-2000">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-panel border-b-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <span class="font-mono text-2xl font-bold text-white tracking-tighter">
+                        KM<span class="text-brand-secondary">.</span>
+                        <span class="text-xs text-brand-primary opacity-70">_AI</span>
+                    </span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-white transition-colors text-sm font-medium">01.
+                            Sobre Mim</a>
+                        <a href="#projects" class="hover:text-white transition-colors text-sm font-medium">02.
+                            Projetos</a>
+                        <a href="#skills" class="hover:text-white transition-colors text-sm font-medium">03.
+                            Skills</a>
+                        <a href="#contact"
+                            class="px-4 py-2 rounded-lg border border-brand-primary/30 text-brand-primary hover:bg-brand-primary hover:text-white transition-all text-sm font-mono">
+                            git commit -m "Contato"
+                        </a>
+                    </div>
+                </div>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <div class="md:hidden">
+                    <button class="text-white focus:outline-none">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 relative px-4" id="home">
+        <div class="max-w-7xl w-full grid md:grid-cols-2 gap-12 items-center">
+
+            <!-- Hero Text -->
+            <div data-aos="fade-right" data-aos-duration="1000">
+                <div
+                    class="inline-flex items-center px-3 py-1 rounded-full border border-brand-primary/20 bg-brand-primary/5 text-brand-primary text-xs font-mono mb-6">
+                    <span class="w-2 h-2 rounded-full bg-brand-primary mr-2 animate-pulse"></span>
+                    System.out.println("FoodTech Innovator");
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    Desenvolvedor Python &<br>
+                    <span class="text-gradient">Especialista em IA</span>
+                </h1>
+                <div class="mb-6">
+                    <p class="text-xl md:text-2xl text-dark-400 font-light">
+                        Empreendedor no Setor de <span class="text-white font-semibold">FoodTech</span>.
+                    </p>
+                </div>
+                <p class="text-dark-400 max-w-lg text-lg leading-relaxed mb-8">
+                    Criando soluções inteligentes com o ecossistema <strong>S.A.K.A.</strong> e escalando negócios
+                    reais.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#projects"
+                        class="group relative px-6 py-3 bg-white text-dark-900 font-bold rounded-lg hover:bg-gray-100 transition-all flex items-center gap-2">
+                        Ver Projetos
+                        <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#contact"
+                        class="px-6 py-3 border border-white/10 rounded-lg hover:bg-white/5 transition-all text-white">
+                        Fale Comigo
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interactive Terminal Visual -->
+            <div class="relative" data-aos="fade-left" data-aos-duration="1000">
+                <div
+                    class="glass-card rounded-xl overflow-hidden shadow-2xl border border-white/10 font-mono text-sm relative z-10">
+                    <!-- Terminal Header -->
+                    <div class="bg-white/5 px-4 py-3 border-b border-white/5 flex items-center justify-between">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                        </div>
+                        <div class="text-xs text-gray-500">kaue@saka-labs:~</div>
+                        <div class="w-8"></div>
+                    </div>
+                    <!-- Terminal Body -->
+                    <div class="p-6 h-[350px] overflow-y-auto" id="hero-terminal-body">
+                        <div class="text-green-400 mb-2">➜ ~ whoami</div>
+                        <div class="text-gray-300 mb-4">
+                            Name: Kaue Martins<br>
+                            Role: Python AI Developer<br>
+                            Focus: Crowdfunding Research & Autonomous Agents
+                        </div>
+
+                        <div class="text-green-400 mb-2">➜ ~ cat goals.json</div>
+                        <div class="text-gray-300 mb-4">
+                            <span class="text-purple-400">{</span><br>
+                            &nbsp;&nbsp;<span class="text-brand-secondary">"next_step"</span>: <span
+                                class="text-yellow-300">"Master's in Korea (GKS)"</span>,<br>
+                            &nbsp;&nbsp;<span class="text-brand-secondary">"current_focus"</span>: [<span
+                                class="text-yellow-300">"S.A.K.A Ecosystem"</span>, <span
+                                class="text-yellow-300">"Delivery Tech"</span>]<br>
+                            <span class="text-purple-400">}</span>
+                        </div>
+
+                        <div class="text-green-400 mb-2">➜ ~ <span class="animate-pulse">_</span></div>
+                    </div>
+                </div>
+
+                <!-- Decorative Elements behind terminal -->
+                <div
+                    class="absolute -top-10 -right-10 w-32 h-32 border border-brand-primary/20 rounded-full pointer-events-none">
+                </div>
+                <div
+                    class="absolute -bottom-10 -left-10 w-24 h-24 border border-brand-secondary/20 rounded-full pointer-events-none border-dashed">
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div
+            class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <span class="text-xs font-mono">scroll</span>
+            <i class="ph ph-caret-down text-lg"></i>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 md:flex md:justify-between md:items-end">
+                <div data-aos="fade-up">
+                    <h2 class="text-sm font-mono text-brand-primary mb-2">01. SOBRE MIM</h2>
+                    <h3 class="text-3xl md:text-4xl font-bold text-white">Pesquisa & Inovação</h3>
+                </div>
+                <p class="mt-4 md:mt-0 max-w-md text-dark-400 text-sm md:text-right" data-aos="fade-up"
+                    data-aos-delay="100">
+                    Combinando rigor acadêmico com execução prática para resolver problemas reais.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Academic Card -->
+                <div class="glass-card p-8 rounded-2xl hover:bg-white/5 transition-all group" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div
+                        class="w-12 h-12 bg-brand-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-graduation-cap text-2xl text-brand-primary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Pesquisa Acadêmica</h4>
+                    <p class="text-sm text-dark-400 leading-relaxed">
+                        Experiência em pesquisa sobre <strong>Crowdfunding</strong> e análise de dados. Foco atual em
+                        aplicar IA para otimizar modelos de financiamento e validação de mercado.
+                    </p>
+                </div>
+
+                <!-- Global Vision Card -->
+                <div class="glass-card p-8 rounded-2xl hover:bg-white/5 transition-all group" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div
+                        class="w-12 h-12 bg-brand-secondary/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-globe text-2xl text-brand-secondary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Visão Global (GKS)</h4>
+                    <p class="text-sm text-dark-400 leading-relaxed">
+                        Preparando-se para o mestrado na <strong>Coreia do Sul</strong> através do programa GKS.
+                        Expandindo horizontes tecnológicos no centro da inovação asiática.
+                    </p>
+                </div>
+
+                <!-- FoodTech Card -->
+                <div class="glass-card p-8 rounded-2xl hover:bg-white/5 transition-all group" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div
+                        class="w-12 h-12 bg-brand-accent/10 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <i class="ph ph-rocket-launch text-2xl text-brand-accent"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Empreendedorismo</h4>
+                    <p class="text-sm text-dark-400 leading-relaxed">
+                        Fundador de uma startup <strong>FoodTech</strong>. Desenvolvo agentes autônomos que gerenciam
+                        operações de delivery, finanças e marketing sem intervenção humana.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16" data-aos="fade-up">
+                <h2 class="text-sm font-mono text-brand-primary mb-2">02. PORTFÓLIO</h2>
+                <h3 class="text-3xl md:text-4xl font-bold text-white">Ecossistema S.A.K.A.</h3>
+            </div>
+
+            <div class="grid gap-12">
+
+                <!-- Project 1: SAKA Ecosystem -->
+                <div class="group relative grid md:grid-cols-12 gap-8 items-center" data-aos="fade-up">
+                    <div class="md:col-span-7 relative h-[400px] rounded-xl overflow-hidden glass-card border-none">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <span class="text-6xl font-black text-white/5 select-none">S.A.K.A</span>
+                            <div class="absolute inset-0 bg-brand-primary/10 mix-blend-overlay"></div>
+                        </div>
+                        <div
+                            class="absolute top-4 left-4 font-mono text-xs text-brand-primary border border-brand-primary/30 px-2 py-1 rounded">
+                            Autonomous Suite</div>
+                    </div>
+
+                    <div class="md:col-span-5 md:relative md:-ml-12 z-10">
+                        <div class="glass-card p-8 rounded-xl shadow-xl backdrop-blur-xl bg-[#18181B]/90">
+                            <h4 class="text-brand-primary font-mono text-sm mb-2">Automation Core</h4>
+                            <h3 class="text-2xl font-bold text-white mb-4">S.A.K.A. Ecosystem</h3>
+                            <p class="text-dark-400 text-sm mb-6 leading-relaxed">
+                                Uma suíte de <strong>agentes autônomos</strong> para Delivery, Finanças e Publicidade.
+                                O sistema gerencia pedidos, reconcilia pagamentos e otimiza campanhas de ads
+                                automaticamente.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs text-gray-400">
+                                <span class="bg-white/5 px-2 py-1 rounded">Python</span>
+                                <span class="bg-white/5 px-2 py-1 rounded">LLMs</span>
+                                <span class="bg-white/5 px-2 py-1 rounded">Automation</span>
+                            </div>
+
+                            <a href="#"
+                                class="inline-flex items-center text-white hover:text-brand-primary transition-colors font-medium text-sm">
+                                Ver Detalhes <i class="ph ph-arrow-up-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: SAKA News -->
+                <div class="group relative grid md:grid-cols-12 gap-8 items-center" data-aos="fade-up">
+                    <div
+                        class="md:col-span-5 md:col-start-1 md:row-start-1 order-2 md:order-1 relative z-10 md:-mr-12 md:text-right">
+                        <div class="glass-card p-8 rounded-xl shadow-xl backdrop-blur-xl bg-[#18181B]/90">
+                            <h4 class="text-brand-secondary font-mono text-sm mb-2">Tech Media</h4>
+                            <h3 class="text-2xl font-bold text-white mb-4">S.A.K.A. News</h3>
+                            <p class="text-dark-400 text-sm mb-6 leading-relaxed">
+                                Blog de tecnologia focado em <strong>notícias de IA</strong> e e-commerce integrado.
+                                Utiliza IA para curadoria e geração de insights para empreendedores tech.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs text-gray-400 md:justify-end">
+                                <span class="bg-white/5 px-2 py-1 rounded">Django</span>
+                                <span class="bg-white/5 px-2 py-1 rounded">SEO</span>
+                                <span class="bg-white/5 px-2 py-1 rounded">Content AI</span>
+                            </div>
+
+                            <a href="#"
+                                class="inline-flex items-center text-white hover:text-brand-secondary transition-colors font-medium text-sm">
+                                Acessar Portal <i class="ph ph-arrow-up-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="md:col-span-7 md:col-start-6 md:row-start-1 order-1 md:order-2 relative h-[400px] rounded-xl overflow-hidden glass-card border-none">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-bl from-gray-900 to-black flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                            <span class="text-6xl font-black text-white/5 select-none">AI NEWS</span>
+                            <div class="absolute inset-0 bg-brand-secondary/10 mix-blend-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Languages Section (Replacing 'Journey') -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-sm font-mono text-brand-primary mb-2">03. EXPERTISE</h2>
+                <h3 class="text-3xl font-bold text-white">Skills & Idiomas</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Tech Skills -->
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-right">
+                    <h4 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="ph ph-code text-brand-secondary"></i> Tech Stack
+                    </h4>
+                    <ul class="space-y-4 text-dark-400 text-sm">
+                        <li class="flex items-center justify-between">
+                            <span>Python & Frameworks</span>
+                            <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-primary w-[95%]"></div>
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Integração de LLMs</span>
+                            <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-primary w-[90%]"></div>
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Agentes Autônomos</span>
+                            <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-primary w-[85%]"></div>
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Estratégia de Negócios</span>
+                            <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-secondary w-[80%]"></div>
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span>Pesquisa Acadêmica</span>
+                            <div class="w-32 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-secondary w-[75%]"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Languages -->
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-left">
+                    <h4 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="ph ph-translate text-brand-accent"></i> Idiomas
+                    </h4>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-white text-sm mb-2">
+                                <span>Português</span>
+                                <span
+                                    class="text-brand-accent text-xs border border-brand-accent/30 px-2 rounded">Nativo</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-accent w-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-white text-sm mb-2">
+                                <span>Coreano</span>
+                                <span class="text-gray-400 text-xs border border-gray-600 px-2 rounded">Em aprendizado
+                                    (GKS Focus)</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-accent w-[30%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-white text-sm mb-2">
+                                <span>Inglês</span>
+                                <span class="text-gray-400 text-xs border border-gray-600 px-2 rounded">Avançado</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div class="h-full bg-brand-accent w-[85%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Terminal Footer -->
+    <section id="contact" class="py-24 bg-dark-900 border-t border-white/5 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-bold text-white mb-4">Vamos Escalar seu Negócio?</h3>
+                <p class="text-gray-400">Estou disponível para projetos de IA, automação e FoodTech.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-2xl">
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">VAR_NAME</label>
+                            <input type="text"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-primary transition-colors font-mono text-sm"
+                                placeholder="Seu Nome">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">VAR_EMAIL</label>
+                            <input type="email"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-primary transition-colors font-mono text-sm"
+                                placeholder="seu@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-mono text-gray-400 mb-1">VAR_MESSAGE</label>
+                            <textarea rows="4"
+                                class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-primary transition-colors font-mono text-sm"
+                                placeholder="Descreva o projeto..."></textarea>
+                        </div>
+                        <div class="flex gap-4">
+                            <button type="button"
+                                class="flex-1 bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                <span>Enviar</span>
+                                <i class="ph ph-paper-plane-right"></i>
+                            </button>
+                            <a href="#" download
+                                class="flex-1 border border-white/10 hover:bg-white/5 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                <span>Download CV</span>
+                                <i class="ph ph-download-simple"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Interactive Terminal Footer -->
+                <div class="h-full flex flex-col justify-between">
+                    <div
+                        class="glass-card rounded-xl overflow-hidden border border-white/10 font-mono text-sm h-64 md:h-auto flex flex-col mb-8 md:mb-0 flex-grow">
+                        <div class="bg-dark-800 px-4 py-2 border-b border-white/5 flex items-center gap-2">
+                            <i class="ph ph-terminal-window text-gray-400"></i>
+                            <span class="text-xs text-gray-400">interactive_shell</span>
+                        </div>
+                        <div class="p-4 bg-black/50 text-xs flex-grow font-mono overflow-y-auto" id="terminal-output">
+                            <div class="text-gray-500 mb-2"># Type 'help' to see available commands</div>
+                            <div class="mb-1"><span class="text-green-400">visitor@portfolio:~$</span> <span
+                                    id="terminal-input-display"></span><span class="animate-pulse">_</span></div>
+                        </div>
+                        <!-- Hidden Input for Mobile/Desktop interaction -->
+                        <input type="text" id="terminal-input"
+                            class="w-full bg-transparent text-transparent caret-transparent absolute bottom-0 opacity-0 h-full cursor-text"
+                            autocomplete="off">
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="flex gap-4 justify-center md:justify-start mt-8">
+                        <a href="https://github.com/barba-branca" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:text-brand-primary transition-all border border-white/5">
+                            <i class="ph ph-github-logo text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/kau%C3%AA-martins-a48963192/" target="_blank"
+                            rel="noopener noreferrer"
+                            class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:text-blue-400 transition-all border border-white/5">
+                            <i class="ph ph-linkedin-logo text-2xl"></i>
+                        </a>
+                        <a href="mailto:kaueneves53@gmail.com"
+                            class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:text-red-400 transition-all border border-white/5"
+                            title="Email">
+                            <i class="ph ph-envelope-simple text-2xl"></i>
+                        </a>
+                        <a href="https://wa.me/5562986279544" target="_blank" rel="noopener noreferrer"
+                            class="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-white hover:bg-white/10 hover:text-green-400 transition-all border border-white/5"
+                            title="WhatsApp">
+                            <i class="ph ph-whatsapp-logo text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-20 text-gray-600 text-xs font-mono">
+            <p>&copy; 2026 Kaue Martins. Built with AI & Passion.</p>
+        </div>
+    </section>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Init AOS
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+        });
+
+        // Typing Effect for Hero Title
+        const words = ["Desenvolvedor Python", "Founder @ FoodTech", "Pesquisador IA"];
+        let i = 0;
+        let timer;
+
+        function typeWriter() {
+            const element = document.getElementById("typing-text");
+            const word = words[i];
+            const current = element.innerText;
+
+            if (current.length < word.length) {
+                element.innerText = word.substring(0, current.length + 1);
+                timer = setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+
+        function erase() {
+            const element = document.getElementById("typing-text");
+            const current = element.innerText;
+
+            if (current.length > 0) {
+                element.innerText = current.substring(0, current.length - 1);
+                timer = setTimeout(erase, 50);
+            } else {
+                i = (i + 1) % words.length;
+                typeWriter();
+            }
+        }
+
+        // Start typing logic
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeWriter, 1000);
+        });
+
+        // Interactive Terminal Logic
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalDisplay = document.getElementById('terminal-input-display');
+        const terminalOutput = document.getElementById('terminal-output');
+        let currentCommand = '';
+
+        terminalInput.addEventListener('input', (e) => {
+            // e.target.value is tricky with the hidden input hack, better to just capture keys
+            // But for mobile support simpler to just focus and capture last char?
+            // Let's rely on keydown for desktop feel, but handle input for mobile
+        });
+
+        // Better interactive terminal implementation
+        document.addEventListener('keydown', (e) => {
+            // Check if terminal input is focused or clicked
+            if (document.activeElement === terminalInput) {
+                if (e.key === 'Enter') {
+                    processCommand(currentCommand);
+                    currentCommand = '';
+                    terminalDisplay.innerText = '';
+                } else if (e.key === 'Backspace') {
+                    currentCommand = currentCommand.slice(0, -1);
+                    terminalDisplay.innerText = currentCommand;
+                } else if (e.key.length === 1) {
+                    currentCommand += e.key;
+                    terminalDisplay.innerText = currentCommand;
+                }
+            }
+        });
+
+        function processCommand(cmd) {
+            const line = document.createElement('div');
+            line.innerHTML = `<span class="text-green-400">visitor@portfolio:~$</span> ${cmd}`;
+            terminalOutput.insertBefore(line, terminalOutput.lastElementChild); // Insert before interaction line
+
+            const response = document.createElement('div');
+            response.className = "mb-2 text-gray-300";
+
+            switch (cmd.toLowerCase().trim()) {
+                case 'help':
+                    response.innerHTML = "Available commands: <span class='text-yellow-300'>bio, skills, contact, clear</span>";
+                    break;
+                case 'bio':
+                    response.innerText = "Kaue Martins. Passionate about bridging the gap between complex code and business value.";
+                    break;
+                case 'skills':
+                    response.innerText = "Python, AI Agents, TDD, Clean Architecture, Strategic Management.";
+                    break;
+                case 'contact':
+                    response.innerHTML = "Email: <a href='mailto:kaueneves53@gmail.com' class='text-blue-400 underline'>kaueneves53@gmail.com</a><br>WhatsApp: <a href='https://wa.me/5562986279544' target='_blank' class='text-green-400 underline'>+55 62 98627-9544</a>";
+                    break;
+                case 'clear':
+                    terminalOutput.innerHTML = '<div class="text-gray-500 mb-2"># Type help to see available commands</div><div class="mb-1"><span class="text-green-400">visitor@portfolio:~$</span> <span id="terminal-input-display"></span><span class="animate-pulse">_</span></div>';
+                    // Re-attach elements
+                    const newDisplay = document.getElementById('terminal-input-display');
+                    // This is a bit hacky for a simple script, avoiding full rebuild
+                    return;
+                default:
+                    response.innerText = `Command not found: ${cmd}. Type 'help' for list.`;
+            }
+
+            if (cmd.toLowerCase().trim() !== 'clear') {
+                terminalOutput.insertBefore(response, terminalOutput.lastElementChild);
+            }
+
+            // Auto scroll
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        // Focus terminal on click
+        document.querySelector('.glass-card').addEventListener('click', () => {
+            terminalInput.focus();
+        });
+
+    </script>
+</body>
+
+</html>
